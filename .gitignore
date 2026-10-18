@@ -4,9 +4,7 @@
 *.tsbuildinfo
 
 # ENVIRONMENT & SECRETS
-.env
- .env.*
- *.env
+## .env.*
 service-account-key-file.json
 *.json.key
 
