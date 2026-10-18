@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../../../.."
+		},
+		{
+			"path": "../../../../../saleecom/SaleEcom-Api"
+		},
+		{
+			"path": "../../../../../saleecom/SaleEcom-Vendor-Panel"
+		},
+		{
+			"path": "../../../../../saleecom/SaleEcom-E-commerce-Theme-1"
+		}
+	],
+	"settings": {}
+}
