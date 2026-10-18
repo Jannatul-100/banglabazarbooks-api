@@ -5,8 +5,8 @@
 
 # ENVIRONMENT & SECRETS
 .env
-.env.*
-*.env
+ .env.*
+ *.env
 service-account-key-file.json
 *.json.key
 
@@ -20,8 +20,8 @@ yarn-error.log*
 lerna-debug.log*
 
 # Uploads & Media
-/upload
-upload/
+# /upload
+# upload/
 
 # Temporary / test scratch files
 scratch-*.js

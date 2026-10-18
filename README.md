@@ -5,7 +5,6 @@
 
 
 
-# Guardian-API
-# Guardian-Publication-API
+
 # banglabazarbooks-api
 # banglabazarbooks-api

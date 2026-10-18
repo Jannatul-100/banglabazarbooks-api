@@ -5,49 +5,59 @@ export default () => ({
   mongoCluster:
     process.env.PRODUCTION_BUILD === 'true'
       ? `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOSTNAME}:${process.env.DB_PORT}/${process.env.DB_NAME}?authSource=${process.env.AUTH_SOURCE}`
-      : (process.env.MONGO_URI || `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@test-softlab.ptacstn.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`),
+      : `mongodb+srv://softlabit:M5LiBL43wpMtrEy9@test-softlab.ptacstn.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+  // mongoCluster: `mongodb://localhost:${process.env.DB_PORT}/${process.env.DB_NAME}`,
+  // mongoCluster: `mongodb+srv://softlabit:M5LiBL43wpMtrEy9@test-softlab.ptacstn.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
   userJwtSecret: process.env.JWT_PRIVATE_KEY_USER,
   adminJwtSecret: process.env.JWT_PRIVATE_KEY_ADMIN,
   userTokenExpiredTime: 604800,
   adminTokenExpiredTime: 604800,
 
   // SSL PAYMENT CREDENTIALS
-  STORE_ID: process.env.STORE_ID || 'Banglabazarbooks0live',
-  STORE_PASSWORD: process.env.STORE_PASSWORD || '',
+  STORE_ID: 'Banglabazarbooks0live',
+  STORE_PASSWORD: '65C9FA62BE06836215',
+  // STORE_ID: 'testbox',
+  // STORE_PASSWORD: 'qwerty', 
 
   // Gmail Api
-  gmail: process.env.GMAIL_USER || 'contact.tee24@gmail.com',
-  googleClientId1: process.env.GOOGLE_CLIENT_ID_1 || '',
-  googleClientSecret1: process.env.GOOGLE_CLIENT_SECRET_1 || '',
-  googleClientRedirectUrl: process.env.GOOGLE_CLIENT_REDIRECT_URL || 'https://developers.google.com/oauthplayground',
-  googleRefreshToken1: process.env.GOOGLE_REFRESH_TOKEN_1 || '',
+  gmail: 'contact.tee24@gmail.com',
+  googleClientId1:
+    '512308839711-28b3nld6pl4m4u5nbti96iqnc1nk00fp.apps.googleusercontent.com',
+  googleClientSecret1: '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',
+  googleClientRedirectUrl: 'https://developers.google.com/oauthplayground',
+  googleRefreshToken1:
+    '1//04_8qMYSyOp1vCgYIARAAGAQSNwF-L9IrlYOcOO_Zq5Udy4ENmxlAx-Hq0c6dXArXkNGZ7xRZayuiBC22tWmrJOzyjs2Lmxm_R28',
 
   // iSMS SSL
-  api_token: process.env.ISMS_API_TOKEN || '',
-  sid: process.env.ISMS_SID || 'Banglabazarbooks',
-  SSL_SMS_API: process.env.SSL_SMS_API || 'https://smsplus.sslwireless.com/api/v3/send-sms',
+  api_token: 'z4r4xk1w-mimzoqkz-4gzjceyh-4xojungi-fnqcxo49',
+  sid: 'Banglabazarbooks',
+  SSL_SMS_API: 'https://smsplus.sslwireless.com/api/v3/send-sms',
 
   promoOfferSchedule: 'Promo_Offer_Schedule',
   promoOfferScheduleOnStart: 'Promo_Offer_Schedule_On_Start',
   promoOfferScheduleOnEnd: 'Promo_Offer_Schedule_On_End',
-  smsSenderUsername: process.env.SMS_SENDER_USERNAME || '01781310241',
-  smsSenderSecret: process.env.SMS_SENDER_SECRET || '',
-  smsSenderPassword: process.env.SMS_SENDER_PASSWORD || '',
-  smsSenderId: process.env.SMS_SENDER_ID || '8809648906672',
-  dbAdminUsername: process.env.DB_ADMIN_USERNAME || '',
-  dbAdminPassword: process.env.DB_ADMIN_PASSWORD || '',
+  smsSenderUsername: '01781310241',
+  // smsSenderSecret: 'C200032065f01a6a427279.06759627',
+  smsSenderSecret: 'bkYlm6yhhQM1haZd7jfJ',
+  smsSenderPassword: 'YV6H7B8N443',
+  // smsSenderId: 'GuardianPub',
+  smsSenderId: '8809648906672',
+  dbAdminUsername: 'ikbalsazib11',
+  dbAdminPassword: 'IKBALsazib11',
   backupDB: process.env.DB_NAME,
   backupPath: './backup/db',
   restorePath: `./restore/${process.env.DB_NAME}`,
 
   // Back Up Config
-  driveFolder: process.env.DRIVE_FOLDER || '1HzP7UXlS3j0fGDk502l1nRV5CbAMPsnE',
+  driveFolder: '1HzP7UXlS3j0fGDk502l1nRV5CbAMPsnE',
   // Google Oauth2 Config
-  googleRedirectUrl: process.env.GOOGLE_REDIRECT_URL || 'https://developers.google.com/oauthplayground',
-  googleClientId: process.env.GOOGLE_CLIENT_ID || '',
-  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-  googleRefreshToken: process.env.GOOGLE_REFRESH_TOKEN || '',
-  accountGmail: process.env.ACCOUNT_GMAIL || 'softlabit.drive@gmail.com',
+  googleRedirectUrl: 'https://developers.google.com/oauthplayground',
+  googleClientId:
+    '23922428634-gg6mvr1qnbucbicgronh0ii67kplemn0.apps.googleusercontent.com',
+  googleClientSecret: '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',
+  googleRefreshToken:
+    '1//04pvQHjbzuCmLCgYIARAAGAQSNwF-L9Irh0V61NXGh4Zawa0A9MX_zsLQSO1n8jyn610KUQxFF0V-xcduxcJ_genZpPTA1R2VT6A',
+  accountGmail: 'softlabit.drive@gmail.com',
   publicBaseUrl:
     process.env.PUBLIC_API_URL ||
     (process.env.PRODUCTION_BUILD === 'true'
@@ -75,20 +85,20 @@ export default () => ({
       : 'https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout',
   bkashUsername:
     process.env.PRODUCTION_BUILD === 'true'
-      ? (process.env.BKASH_USERNAME_PROD || '01521741585')
-      : (process.env.BKASH_USERNAME_SANDBOX || '01770618567'),
+      ? '01521741585'
+      : '01770618567',
   bkashPassword:
     process.env.PRODUCTION_BUILD === 'true'
-      ? (process.env.BKASH_PASSWORD_PROD || '')
-      : (process.env.BKASH_PASSWORD_SANDBOX || ''),
+      ? '>_kgl0w+C!q'
+      : 'D7DaC<*E*eG',
   bkashAppKey:
     process.env.PRODUCTION_BUILD === 'true'
-      ? (process.env.BKASH_APP_KEY_PROD || '')
-      : (process.env.BKASH_APP_KEY_SANDBOX || ''),
+      ? 'jnukZDteHjmtw0dQLTEGYm02tc'
+      : '0vWQuCRGiUX7EPVjQDr0EUAYtc',
   bkashAppSecret:
     process.env.PRODUCTION_BUILD === 'true'
-      ? (process.env.BKASH_APP_SECRET_PROD || '')
-      : (process.env.BKASH_APP_SECRET_SANDBOX || ''),
+      ? 'YjQ5qAqCG74WFEUUCmZqMerYbcV0E5XBMpYH5vIKvWMhsgAVQ3As'
+      : 'jcUNPBgbcqEDedNKdvE4G1cAK7D3hCjmJccNPZZBq96QIxxwAMEx',
   bkashRedirectUrlBase:
     process.env.PRODUCTION_BUILD === 'true'
       ? 'https://banglabazarbooks.com'
