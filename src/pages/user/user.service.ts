@@ -206,8 +206,12 @@ export class UserService {
     createUserDto: CreateUserDto,
   ): Promise<UserAuthResponse> {
     try {
+      const phoneOrUser = createUserDto.phoneNo || createUserDto.username;
       const userData = await this.userModel.findOne({
-        username: createUserDto.phoneNo,
+        $or: [
+          { username: phoneOrUser },
+          { phoneNo: phoneOrUser }
+        ]
       });
       if (userData) {
         return {
@@ -222,9 +226,13 @@ export class UserService {
         const salt = await bcrypt.genSalt();
         const hashedPass = await bcrypt.hash(password, salt);
 
+        const phone = createUserDto.phoneNo || (!createUserDto.email && !createUserDto.username?.includes('@') ? createUserDto.username : undefined);
+
         const mData = {
           ...createUserDto,
-          ...{ password: hashedPass, username: createUserDto.phoneNo },
+          password: hashedPass,
+          username: createUserDto.username || createUserDto.phoneNo,
+          phoneNo: phone,
         };
         const newUser = new this.userModel(mData);
 
@@ -407,7 +415,11 @@ export class UserService {
       if (!select) {
         select = '-password';
       }
-      const data = await this.userModel.findById(user._id).select(select);
+      const data: any = await this.userModel.findById(user._id).select(select);
+      if (data && !data.phoneNo && data.username && !data.username.includes('@')) {
+        data.phoneNo = data.username;
+        await this.userModel.updateOne({ _id: user._id }, { $set: { phoneNo: data.username } });
+      }
       return {
         data,
         success: true,

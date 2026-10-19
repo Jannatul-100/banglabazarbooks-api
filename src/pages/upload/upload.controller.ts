@@ -48,7 +48,7 @@ export class UploadController {
   constructor(
     private configService: ConfigService,
     private uploadService: UploadService,
-  ) {}
+  ) { }
 
   private getBaseUrl(req: any): string {
     const isProduction = this.configService.get<boolean>('productionBuild');

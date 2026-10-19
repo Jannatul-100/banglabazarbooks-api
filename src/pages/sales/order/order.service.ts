@@ -1564,43 +1564,50 @@ export class OrderService {
   private async newOrderMake(orderData: any) {
     let cartItems: any[] = [];
 
+    const hasClientCart = Array.isArray(orderData?.cartData) && orderData.cartData.length > 0;
+
     // Card Data Get
-    if (!orderData?.user) {
+    if (hasClientCart || !orderData?.user) {
+      const cartIds = (orderData.carts && orderData.carts.length)
+        ? orderData.carts
+        : (orderData.cartData || []).map((m: any) => m.product?._id || m.product).filter(Boolean);
+
       const fProducts = JSON.parse(
         JSON.stringify(
           await this.productModel.find({
-            _id: { $in: orderData.carts.map((m) => new ObjectId(m)) },
+            _id: { $in: cartIds.map((m: any) => new ObjectId(m)) },
           }),
         ),
       );
 
       // Fetch special package data if cartType is 1
-      const fSpecialPackages = orderData.cartData
-        .filter((item) => item.cartType === 1)
-        .map((item) => item.specialPackage);
+      const fSpecialPackages = (orderData.cartData || [])
+        .filter((item: any) => item.cartType === 1)
+        .map((item: any) => item.specialPackage);
 
       const specialPackages = fSpecialPackages.length
         ? JSON.parse(
           JSON.stringify(
             await this.specialPackageModel.find({
-              _id: { $in: fSpecialPackages.map((id) => new ObjectId(id)) },
+              _id: { $in: fSpecialPackages.map((id: any) => new ObjectId(id)) },
             }),
           ),
         )
         : [];
 
       if ((fProducts && fProducts.length) || specialPackages) {
-        cartItems = orderData.cartData.map((t1) => {
+        cartItems = (orderData.cartData || []).map((t1: any) => {
+          const t1ProdId = t1.product?._id ? t1.product._id.toString() : t1.product?.toString();
           const productFromFProducts = fProducts.find(
-            (t2) => t2._id === t1.product,
+            (t2: any) => t2._id?.toString() === t1ProdId,
           );
           const productFromSpecialPackages = specialPackages.find(
-            (t2) => t2._id === t1.product,
+            (t2: any) => t2._id?.toString() === t1ProdId,
           );
           return {
             ...t1,
-            product: { ...productFromFProducts },
-            specialPackage: { ...productFromSpecialPackages },
+            product: { ...(productFromFProducts || {}) },
+            specialPackage: { ...(productFromSpecialPackages || {}) },
           };
         });
       }
@@ -1675,6 +1682,10 @@ export class OrderService {
       quantity: m.selectedQty,
       orderType: (m.product?.isPreOrder || m.orderType === 'pre_order' || m.orderType === 'pre-order') ? 'pre_order' : 'regular',
     }));
+
+    if (products.length === 0 && Array.isArray(orderData?.orderedItems) && orderData.orderedItems.length > 0) {
+      products.push(...orderData.orderedItems);
+    }
 
     // Cart SubTotal
     const cartSubTotal = finalData.reduce(
