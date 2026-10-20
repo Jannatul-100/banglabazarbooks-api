@@ -20,6 +20,8 @@ export interface Order {
   zone?: Zone;
   deliveryCharge: number;
   discount: number;
+  additionalDiscount?: number;
+  extraDiscount?: number;
   grandTotal: number;
   checkoutDate: string;
   deliveryDate?: any;
