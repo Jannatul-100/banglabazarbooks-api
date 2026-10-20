@@ -98,6 +98,16 @@ export const OrderSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    additionalDiscount: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    extraDiscount: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
     orderDiscountFromApps: {
       type: Number,
       required: false,
